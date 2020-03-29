@@ -6,7 +6,6 @@
       <!-- 工具栏显示的地方 -->
       <div class="bpmn-js-properties-panel" id="js-properties-panel"></div>
 
-
       <!-- 把操作按钮写在这里面 -->
       <div class="action">
         <el-upload action class="upload-demo" :before-upload="openBpmn">
@@ -28,6 +27,9 @@ import BpmnModeler from "bpmn-js/lib/Modeler";
 import propertiesProviderModule from "bpmn-js-properties-panel/lib/provider/camunda";
 import propertiesPanelModule from "bpmn-js-properties-panel";
 import camundaModdleDescriptor from "camunda-bpmn-moddle/resources/camunda";
+
+// 汉化
+import customTranslate from "./customTranslate";
 
 export default {
   data() {
@@ -161,6 +163,11 @@ export default {
       // 获取画布 element
       this.canvas = this.$refs.canvas;
 
+      // 将汉化包装成一个模块
+      const customTranslateModule = {
+        translate: ["value", customTranslate]
+      };
+
       // 创建Bpmn对象
       this.bpmnModeler = new BpmnModeler({
         // 设置bpmn的绘图容器为上门获取的画布 element
@@ -170,7 +177,13 @@ export default {
         propertiesPanel: {
           parent: "#js-properties-panel"
         },
-        additionalModules: [propertiesProviderModule, propertiesPanelModule],
+        additionalModules: [
+          // 工具栏模块
+          propertiesProviderModule,
+          propertiesPanelModule,
+          // 汉化模块
+          customTranslateModule
+        ],
         moddleExtensions: {
           camunda: camundaModdleDescriptor
         }
@@ -194,7 +207,6 @@ export default {
 </script>
 
 <style>
-
 .bpmn-canvas {
   width: 100%;
   height: 100vh;
