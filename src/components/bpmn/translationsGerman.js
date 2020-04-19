@@ -109,7 +109,7 @@ export default {
   'already rendered {element}': '{element} 已被渲染',
   'failed to import {element}': '导入{element}失败',
   //属性面板的参数
-  'Id': '编号',
+  'Id': '标识',
   'Name': '名称',
   'General': '常规',
   'Details': '详情',
